@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TableContactos from "./components/TableContactos";
 
 import {
@@ -12,6 +12,22 @@ import {
 } from "reactstrap";
 
 function App() {
+  const [contactos, setContactos] = useState([]);
+
+  const mostrarContactos = async () => {
+    const response = await fetch("/api/contacto/lista");
+    if (response.ok) {
+      const data = await response.json();
+      setContactos(data);
+    } else {
+      console.log("error en la lista");
+    }
+  };
+
+  useEffect(() => {
+    mostrarContactos();
+  }, []);
+
   return (
     <Container>
       <Row className="mt-5">
@@ -25,7 +41,7 @@ function App() {
                 Nuevo Contacto
               </Button>
               <hr></hr>
-              <TableContactos></TableContactos>
+              <TableContactos data={contactos} />
             </CardBody>
           </Card>
         </Col>
