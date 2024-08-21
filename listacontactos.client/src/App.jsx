@@ -1,4 +1,5 @@
 import React from "react";
+import TableContactos from "./components/TableContactos";
 
 import {
   Col,
@@ -18,13 +19,14 @@ function App() {
           <Card>
             <CardHeader>
               <h5>Lista de Contactos:</h5>
-              <CardBody>
-                <Button size="sm" color="success">
-                  Nuevo Contacto
-                </Button>
-                <hr></hr>
-              </CardBody>
             </CardHeader>
+            <CardBody>
+              <Button size="sm" color="success">
+                Nuevo Contacto
+              </Button>
+              <hr></hr>
+              <TableContactos></TableContactos>
+            </CardBody>
           </Card>
         </Col>
       </Row>
