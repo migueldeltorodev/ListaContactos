@@ -61,6 +61,19 @@ function App() {
     }
   };
 
+  const eliminarContacto = async (id) => {
+    var respuesta = window.confirm("Desea eliminar el contacto?");
+    if (!respuesta) {
+      return;
+    }
+    const response = await fetch("api/contacto/eliminar/" + id, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      mostrarContactos();
+    }
+  };
+
   //El hook principal de la aplicación que hace que el componente App se re-renderice cada vez que ocurre un cambio basicamente
   useEffect(() => {
     mostrarContactos();
@@ -98,6 +111,7 @@ function App() {
                 setEditar={setEditar}
                 mostrarModal={mostrarModal}
                 setMostrarModal={setMostrarModal}
+                eliminarContacto={eliminarContacto}
               />
             </CardBody>
           </Card>
@@ -107,7 +121,11 @@ function App() {
         /* obviamente recibe el mostrarModal para manipular el atributo isOpen
       recibe como referencia setMostralModal, para cuando se culmine la tarea devolver el mostrarModal a false
       recibe guardarContacto la funcion, por referencia para cuando decida tocar en Guardar, se envien los datos de ese contacto (objeto)
-      
+      recibe el objeto editar, que le va a decir si el modal debe mostrar datos o no cuando aparezca
+      recibe el setEditar para a la hora de cerrar el modal, ponga el editar en null, por que? simplemente porque ya se terminó la 
+      operacion sobre este.
+      recibe editarContacto que es la funcion que aqui en App recibe un contacto de parametro, entonces desde el modal enviamos
+      ese contacto, con los datos obtenidos del input
       */
         mostrarModal={mostrarModal}
         setMostrarModal={setMostrarModal}
